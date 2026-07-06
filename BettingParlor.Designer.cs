@@ -200,9 +200,11 @@ namespace DogsAtTheRaces
             // 
             num_dogNumber.Location = new Point(568, 166);
             num_dogNumber.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
+            num_dogNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             num_dogNumber.Name = "num_dogNumber";
             num_dogNumber.Size = new Size(59, 31);
             num_dogNumber.TabIndex = 8;
+            num_dogNumber.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // bt_bet
             // 
@@ -320,7 +322,6 @@ namespace DogsAtTheRaces
         #endregion
 
         private PictureBox pb_raceTrack;
-        private PictureBox pb_dog1;
         private PictureBox pb_dog2;
         private PictureBox pb_dog3;
         private PictureBox pb_dog4;
@@ -341,5 +342,6 @@ namespace DogsAtTheRaces
         private Button bt_race;
         private System.Windows.Forms.Timer t_raceTimer;
         private NumericUpDown numericUpDown1;
+        public PictureBox pb_dog1;
     }
 }

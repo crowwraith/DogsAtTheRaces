@@ -10,9 +10,12 @@ public partial class BettingParlor : Form
     Guy[] guys = new Guy[3];
     Dog[] dogs = new Dog[4];
     public int usernumber = 0;
+    public int racelengt;
     public Random Randomizer = new Random();
     //private System.Windows.Forms.Timer timer;
-
+    public bool betstats1;
+    public bool betstats2;
+    public bool betstats3;
     public BettingParlor()
     {
         InitializeComponent();
@@ -24,72 +27,87 @@ public partial class BettingParlor : Form
         guys[1].UpdateLabels();
         guys[2].UpdateLabels();
 
+        racelengt = pb_raceTrack.Width;
+
+        dogs[0] = new Dog(Randomizer, pb_dog1);
+        dogs[1] = new Dog(Randomizer, pb_dog2);
+        dogs[2] = new Dog(Randomizer, pb_dog3);
+        dogs[3] = new Dog(Randomizer, pb_dog4);
 
 
-        dogs[0] = new Dog(Randomizer);
-        dogs[1] = new Dog(Randomizer);
-        dogs[2] = new Dog(Randomizer);
-        dogs[3] = new Dog(Randomizer);
-
-        //// Initialize Timer
-        //timer = new System.Windows.Forms.Timer();
-        //timer.Interval = 1000; // 1 second
-        //timer.Tick += OnTimerTick;
-        //timer.Start();
-
-    }
-    //public void timer_tick()
-    //{// loop trough doggies, instead of number
-    //    for (int i = 0; i < 3; i++)
-    //    {
-    //        if (dogs[i].Run() == true)
-    //        {
-    //            int winner = i;
-    //            Console.WriteLine(i);
-    //        }
-    //    }
-    //}
-
-
+    // stuff for the race itself
     public void bt_race_Click(object sender, EventArgs e)
     {
         t_raceTimer.Start();
-        for (int i = 0; i < dogs.Length; i++)
+
+        if (betstats1 == false)
         {
-            if (dogs[i].Run() == true)
-            {
-                int winner = i;
-                Console.WriteLine("hond nummer"+winner+ 1 + "heeft gewonnen");
-            }
+            lb_guy1BetLabel.Text = "Joe heeft geen bet geplaatst";
+        }
+        if (betstats2 == false)
+        {
+            lb_guy2BetLabel.Text = "Bob heeft geen bet geplaatst";
+        }
+        if (betstats3 == false)
+        {
+            lb_guy3BetLabel.Text = "Al heeft geen bet geplaatst";
         }
 
     }
+    public void t_raceTimer_Tick(object sender, EventArgs e)
+    {
+        for (int i = 0; i < dogs.Length; i++)
+        {
+            if (dogs[i].Run(racelengt) == true)
+            {
+                int winner = i;
+                Console.WriteLine("hond nummer" + (winner + 1) + "heeft gewonnen");
+                t_raceTimer.Stop();
+
+                return;
+            }
+        }
+    }
+    public void raceEnd()
+    {
+        for (int j = 0; j < dogs.Length; j++)
+        {
+            dogs[1].TakeStartingPosition();
+        }
+    }
+
+
+    // buttons for pre race betting
 
     public void bt_bet_Click(object sender, EventArgs e)
     {
         string user = lb_name.Text;
         int dog = (int)num_dogNumber.Value;
-        int betvalue = (int)numericUpDown1.Value;
-        
-        if (usernumber == 0) {
-            lb_guy1BetLabel.Text = usernumber + "" + betvalue.ToString(); 
-        }
-        else if (usernumber == 1)
-        {
-            lb_guy2BetLabel.Text = usernumber + "" + betvalue.ToString();
-        }
-        else if (usernumber == 2)
-        {
-            lb_guy3BetLabel.Text = usernumber + "" + betvalue.ToString();
-        }
-        guys[usernumber].PlaceBet(betvalue, dog);
-        
-    }
+        int betvalue;
 
-    public void t_raceTimer_Tick(object sender, EventArgs e)
-    {
-        
-        
+        if (usernumber == 0) {
+            betvalue = (int)numericUpDown1.Value;
+            lb_guy1BetLabel.Text = "joe heeft " + betvalue.ToString() + " ingezet op hond nummer" + dog;
+            guys[usernumber].PlaceBet(betvalue, dog);
+            betstats1 = true;
+
+
+        }
+        if (usernumber == 1)
+        {
+            betvalue = (int)numericUpDown1.Value;
+            lb_guy2BetLabel.Text = "Bob heeft " + betvalue.ToString() + " ingezet op hond nummer" + dog;
+            guys[usernumber].PlaceBet(betvalue, dog);
+            betstats2 = true;
+        }
+        if (usernumber == 2)
+        {
+            betvalue = (int)numericUpDown1.Value;
+            lb_guy3BetLabel.Text = "Al heeft " + betvalue.ToString() + " ingezet op hond nummer" + dog;
+            guys[usernumber].PlaceBet(betvalue, dog);
+            betstats3 = true;
+        }
+
     }
 
     public void rb_Guy3_CheckedChanged(object sender, EventArgs e)
@@ -100,7 +118,6 @@ public partial class BettingParlor : Form
             lb_name.Text = guys[2].Name;
         }
     }
-
     public void rb_Guy2_CheckedChanged(object sender, EventArgs e)
     {
         if (rb_Guy2.Checked)
@@ -109,7 +126,6 @@ public partial class BettingParlor : Form
             lb_name.Text = guys[1].Name;
         }
     }
-
     public void rb_Guy1_CheckedChanged(object sender, EventArgs e)
     {
         if (rb_Guy1.Checked)
@@ -118,4 +134,5 @@ public partial class BettingParlor : Form
             lb_name.Text = guys[0].Name;
         }
     }
+
 }

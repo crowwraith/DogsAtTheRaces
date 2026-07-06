@@ -13,15 +13,17 @@ namespace DogsAtTheRaces
         public int StartingPositioin;
         public int RacetrackLength;
         public int Location = 0;
-        public PictureBox MyPictureBox = null;
+        public PictureBox MyPictureBox;
         public Random Randomizer; // maakt anders een random aan voor elke hond, moest er maar 1 zijn. dus aanmaken op bettingparlor zelf en dan meegeven.
 
-        public Dog(Random random)
+        public Dog(Random random, PictureBox mypic)
         {
           Randomizer = random;
+          MyPictureBox = mypic;
         }
-        public bool Run()
+        public bool Run(int racelength)
         {
+            RacetrackLength = racelength-90;
             Location = Randomizer.Next(1, 5);
             MyPictureBox.Left = StartingPositioin += Location;
             if (StartingPositioin+Location >= RacetrackLength)
@@ -35,9 +37,9 @@ namespace DogsAtTheRaces
         }
         public void TakeStartingPosition()
         {
-            MyPictureBox.Left = 0;
+            MyPictureBox.Left = 5;
 
         }
-
+        
     }
 }
