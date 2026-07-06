@@ -4,27 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DogsAtTheRaces
 {
     public class Guy
     {
-        public string Name;
+        public string Name { get; set; }
+        public int Cash { get; set; }
+
         public Bet MyBet;
-        public int Cash;
 
         //ui delen:
         public RadioButton MyRadioButton;
         public Label MyLabel;
 
+        public Guy(string name, int cash)
+        {
+            Name = name;
+            Cash = cash;
+        }
         public void UpdateLabels()
         {
+            
+            //MyLabel.Text = Name;
+            string money = Cash.ToString();
+            //MyRadioButton.Text = money;
             // set my label to bet's description, radio button to show cash
         }
 
         public void ClearBet()
         {   
             // set bet to 0, use value out of mybet
-            // MyBet.Amount=0;
+            MyBet.Amount=0;
         }
         public bool PlaceBet(int BetAmount, int DogToWin)
         {
@@ -34,7 +45,8 @@ namespace DogsAtTheRaces
         }
         public void Collect( int Winner)
         {
-            // make bet pay out, clear the bet and update the labels
+            int number = Winner;
+            MyBet.PayOut(number);
         }
     }
 }

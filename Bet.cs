@@ -20,10 +20,14 @@ namespace DogsAtTheRaces
 
         public int PayOut(int winner)
         {
-            if(winner == dog)
+            if(winner == Dog)
             {
-                return Amount+Amount;
+                return Amount;
             }
+            else
+            {
+                return 0 - Amount;
+            } 
         }
     }
 }

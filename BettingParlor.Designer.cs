@@ -37,6 +37,7 @@ namespace DogsAtTheRaces
             pb_dog3 = new PictureBox();
             pb_dog4 = new PictureBox();
             gB_bettingParlor = new GroupBox();
+            numericUpDown1 = new NumericUpDown();
             bt_race = new Button();
             lb_guy3BetLabel = new Label();
             lb_guy2BetLabel = new Label();
@@ -58,6 +59,7 @@ namespace DogsAtTheRaces
             ((System.ComponentModel.ISupportInitialize)pb_dog3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pb_dog4).BeginInit();
             gB_bettingParlor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)num_dogNumber).BeginInit();
             SuspendLayout();
             // 
@@ -115,6 +117,7 @@ namespace DogsAtTheRaces
             // 
             // gB_bettingParlor
             // 
+            gB_bettingParlor.Controls.Add(numericUpDown1);
             gB_bettingParlor.Controls.Add(bt_race);
             gB_bettingParlor.Controls.Add(lb_guy3BetLabel);
             gB_bettingParlor.Controls.Add(lb_guy2BetLabel);
@@ -135,6 +138,16 @@ namespace DogsAtTheRaces
             gB_bettingParlor.TabIndex = 5;
             gB_bettingParlor.TabStop = false;
             gB_bettingParlor.Text = "Betting Parlor";
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(178, 164);
+            numericUpDown1.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
+            numericUpDown1.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(59, 31);
+            numericUpDown1.TabIndex = 15;
+            numericUpDown1.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
             // bt_race
             // 
@@ -185,7 +198,8 @@ namespace DogsAtTheRaces
             // 
             // num_dogNumber
             // 
-            num_dogNumber.Location = new Point(373, 164);
+            num_dogNumber.Location = new Point(568, 166);
+            num_dogNumber.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
             num_dogNumber.Name = "num_dogNumber";
             num_dogNumber.Size = new Size(59, 31);
             num_dogNumber.TabIndex = 8;
@@ -203,7 +217,7 @@ namespace DogsAtTheRaces
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(178, 166);
+            label2.Location = new Point(373, 161);
             label2.Name = "label2";
             label2.Size = new Size(198, 25);
             label2.TabIndex = 6;
@@ -223,9 +237,9 @@ namespace DogsAtTheRaces
             lb_minimumBet.AutoSize = true;
             lb_minimumBet.Location = new Point(138, 27);
             lb_minimumBet.Name = "lb_minimumBet";
-            lb_minimumBet.Size = new Size(167, 25);
+            lb_minimumBet.Size = new Size(22, 25);
             lb_minimumBet.TabIndex = 4;
-            lb_minimumBet.Text = "<<minimum bet>>";
+            lb_minimumBet.Text = "5";
             // 
             // label1
             // 
@@ -242,33 +256,36 @@ namespace DogsAtTheRaces
             rb_Guy3.AutoSize = true;
             rb_Guy3.Location = new Point(10, 125);
             rb_Guy3.Name = "rb_Guy3";
-            rb_Guy3.Size = new Size(141, 29);
+            rb_Guy3.Size = new Size(53, 29);
             rb_Guy3.TabIndex = 2;
             rb_Guy3.TabStop = true;
-            rb_Guy3.Text = "radioButton3";
+            rb_Guy3.Text = "Al";
             rb_Guy3.UseVisualStyleBackColor = true;
+            rb_Guy3.CheckedChanged += rb_Guy3_CheckedChanged;
             // 
             // rb_Guy2
             // 
             rb_Guy2.AutoSize = true;
             rb_Guy2.Location = new Point(10, 90);
             rb_Guy2.Name = "rb_Guy2";
-            rb_Guy2.Size = new Size(141, 29);
+            rb_Guy2.Size = new Size(69, 29);
             rb_Guy2.TabIndex = 1;
             rb_Guy2.TabStop = true;
-            rb_Guy2.Text = "radioButton2";
+            rb_Guy2.Text = "Bob";
             rb_Guy2.UseVisualStyleBackColor = true;
+            rb_Guy2.CheckedChanged += rb_Guy2_CheckedChanged;
             // 
             // rb_Guy1
             // 
             rb_Guy1.AutoSize = true;
             rb_Guy1.Location = new Point(10, 55);
             rb_Guy1.Name = "rb_Guy1";
-            rb_Guy1.Size = new Size(141, 29);
+            rb_Guy1.Size = new Size(61, 29);
             rb_Guy1.TabIndex = 0;
             rb_Guy1.TabStop = true;
-            rb_Guy1.Text = "radioButton1";
+            rb_Guy1.Text = "joe";
             rb_Guy1.UseVisualStyleBackColor = true;
+            rb_Guy1.CheckedChanged += rb_Guy1_CheckedChanged;
             // 
             // t_raceTimer
             // 
@@ -294,6 +311,7 @@ namespace DogsAtTheRaces
             ((System.ComponentModel.ISupportInitialize)pb_dog4).EndInit();
             gB_bettingParlor.ResumeLayout(false);
             gB_bettingParlor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ((System.ComponentModel.ISupportInitialize)num_dogNumber).EndInit();
             ResumeLayout(false);
         }
@@ -322,5 +340,6 @@ namespace DogsAtTheRaces
         private Label label4;
         private Button bt_race;
         private System.Windows.Forms.Timer t_raceTimer;
+        private NumericUpDown numericUpDown1;
     }
 }
