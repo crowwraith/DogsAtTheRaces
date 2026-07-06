@@ -10,7 +10,7 @@ namespace DogsAtTheRaces
     public class Bet
     {
         public int Amount;
-        public int Dog = 0; // dog number
+        public int Dog; // dog number
         public Guy Bettor; 
 
         public string GetDescription()
@@ -20,10 +20,13 @@ namespace DogsAtTheRaces
 
         public int PayOut(int winner)
         {
-            if(winner == dog)
-            {
-                return Amount+Amount;
-            }
+            if (Amount == 0)
+                return 0;
+
+            if (winner == Dog)
+                return Amount * 2;
+            else
+                return 0;
         }
     }
 }
