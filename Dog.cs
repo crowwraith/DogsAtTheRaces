@@ -23,10 +23,10 @@ namespace DogsAtTheRaces
         }
         public bool Run(int racelength)
         {
-            RacetrackLength = racelength-90;
-            Location = Randomizer.Next(1, 5);
+            RacetrackLength = racelength-120;
+            Location = Randomizer.Next(1, 9);
             MyPictureBox.Left = StartingPositioin += Location;
-            if (StartingPositioin+Location >= RacetrackLength)
+            if (StartingPositioin >= RacetrackLength)
             {
                 return true;
             }
@@ -38,6 +38,7 @@ namespace DogsAtTheRaces
         public void TakeStartingPosition()
         {
             MyPictureBox.Left = 5;
+            StartingPositioin = 5;
 
         }
         

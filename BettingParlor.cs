@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Timers;
 using System.Windows.Forms;
@@ -11,8 +12,8 @@ public partial class BettingParlor : Form
     Dog[] dogs = new Dog[4];
     public int usernumber = 0;
     public int racelengt;
+    public int winner;
     public Random Randomizer = new Random();
-    //private System.Windows.Forms.Timer timer;
     public bool betstats1;
     public bool betstats2;
     public bool betstats3;
@@ -33,6 +34,8 @@ public partial class BettingParlor : Form
         dogs[1] = new Dog(Randomizer, pb_dog2);
         dogs[2] = new Dog(Randomizer, pb_dog3);
         dogs[3] = new Dog(Randomizer, pb_dog4);
+
+    }
 
 
     // stuff for the race itself
@@ -60,10 +63,11 @@ public partial class BettingParlor : Form
         {
             if (dogs[i].Run(racelengt) == true)
             {
-                int winner = i;
-                Console.WriteLine("hond nummer" + (winner + 1) + "heeft gewonnen");
+                winner = i;
+                Console.WriteLine("hond nummer" + (winner+1) + "heeft gewonnen");
                 t_raceTimer.Stop();
-
+                MessageBox.Show("hond nummer" + (winner+1) + "heeft gewonnen");
+                raceEnd();
                 return;
             }
         }
@@ -72,7 +76,18 @@ public partial class BettingParlor : Form
     {
         for (int j = 0; j < dogs.Length; j++)
         {
-            dogs[1].TakeStartingPosition();
+            dogs[j].TakeStartingPosition();
+
+        }
+        betstats3 = false;
+        betstats2 = false;
+        betstats1 = false;
+        lb_guy1BetLabel.Text = "nog geen bet geplaatst";
+        lb_guy2BetLabel.Text = "nog geen bet geplaatst";
+        lb_guy3BetLabel.Text = "nog geen bet geplaatst";
+        foreach (Guy g in guys)
+        {
+            g.Collect(winner);
         }
     }
 
@@ -87,23 +102,26 @@ public partial class BettingParlor : Form
 
         if (usernumber == 0) {
             betvalue = (int)numericUpDown1.Value;
-            lb_guy1BetLabel.Text = "joe heeft " + betvalue.ToString() + " ingezet op hond nummer" + dog;
-            guys[usernumber].PlaceBet(betvalue, dog);
-            betstats1 = true;
-
-
+            lb_guy1BetLabel.Text = "joe heeft " + betvalue.ToString() + " ingezet op hond nummer " + dog;
+            if (!guys[usernumber].PlaceBet(betvalue, dog))
+            {
+                MessageBox.Show("Niet genoeg geld!");
+                return;
+            }
+            // check ook of speler genoeg geld heeft -> gebeurt nog niet
+            betstats1 = true;            
         }
         if (usernumber == 1)
         {
             betvalue = (int)numericUpDown1.Value;
-            lb_guy2BetLabel.Text = "Bob heeft " + betvalue.ToString() + " ingezet op hond nummer" + dog;
+            lb_guy2BetLabel.Text = "Bob heeft " + betvalue.ToString() + " ingezet op hond nummer " + dog;
             guys[usernumber].PlaceBet(betvalue, dog);
             betstats2 = true;
         }
         if (usernumber == 2)
         {
             betvalue = (int)numericUpDown1.Value;
-            lb_guy3BetLabel.Text = "Al heeft " + betvalue.ToString() + " ingezet op hond nummer" + dog;
+            lb_guy3BetLabel.Text = "Al heeft " + betvalue.ToString() + " ingezet op hond nummer " + dog;
             guys[usernumber].PlaceBet(betvalue, dog);
             betstats3 = true;
         }
@@ -115,7 +133,7 @@ public partial class BettingParlor : Form
         if (rb_Guy3.Checked)
         {
             usernumber = 2;
-            lb_name.Text = guys[2].Name;
+            lb_name.Text = guys[2].Name +" heeft nu "+ guys[2].Cash + " cash";
         }
     }
     public void rb_Guy2_CheckedChanged(object sender, EventArgs e)
@@ -123,7 +141,7 @@ public partial class BettingParlor : Form
         if (rb_Guy2.Checked)
         {
             usernumber = 1;
-            lb_name.Text = guys[1].Name;
+            lb_name.Text = guys[1].Name + " heeft nu " + guys[1].Cash + " cash";
         }
     }
     public void rb_Guy1_CheckedChanged(object sender, EventArgs e)
@@ -131,7 +149,7 @@ public partial class BettingParlor : Form
         if (rb_Guy1.Checked)
         {
             usernumber = 0;
-            lb_name.Text = guys[0].Name;
+            lb_name.Text = guys[0].Name + " heeft nu " + guys[0].Cash + " cash";
         }
     }
 

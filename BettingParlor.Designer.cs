@@ -141,7 +141,7 @@ namespace DogsAtTheRaces
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(178, 164);
+            numericUpDown1.Location = new Point(308, 166);
             numericUpDown1.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             numericUpDown1.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
@@ -208,7 +208,7 @@ namespace DogsAtTheRaces
             // 
             // bt_bet
             // 
-            bt_bet.Location = new Point(109, 161);
+            bt_bet.Location = new Point(230, 166);
             bt_bet.Name = "bt_bet";
             bt_bet.Size = new Size(63, 34);
             bt_bet.TabIndex = 7;
@@ -228,7 +228,7 @@ namespace DogsAtTheRaces
             // lb_name
             // 
             lb_name.AutoSize = true;
-            lb_name.Location = new Point(10, 166);
+            lb_name.Location = new Point(10, 172);
             lb_name.Name = "lb_name";
             lb_name.Size = new Size(104, 25);
             lb_name.TabIndex = 5;

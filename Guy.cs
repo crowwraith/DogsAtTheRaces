@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,14 +40,26 @@ namespace DogsAtTheRaces
         }
         public bool PlaceBet(int BetAmount, int DogToWin)
         {
-            // place new bet and store in bet field, return true if enough money to place bet
-            if (MyBet == null) return false;//placeholders
-            else return true;//placeholders since bet doesnt excist yet
+            // check of er genoeg geld is
+            if (BetAmount <= 4 || BetAmount > Cash)
+                return false;
+
+            // maak nieuwe bet aan
+            MyBet = new Bet();
+            MyBet.Amount = BetAmount;
+            MyBet.Dog = DogToWin-1;
+            MyBet.Bettor = this;
+            return true;
         }
-        public void Collect( int Winner)
+        public void Collect(int Winner)
         {
-            int number = Winner;
-            MyBet.PayOut(number);
+            if (MyBet == null || MyBet.Amount == 0)
+                return;
+            Cash -= MyBet.Amount;
+            int payout = MyBet.PayOut(Winner);
+            Cash += payout;
+
+            MyBet = null;
         }
     }
 }
