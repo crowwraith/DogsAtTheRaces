@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,10 @@ namespace DogsAtTheRaces
         public int Amount;
         public int Dog; // dog number
         public Guy Bettor; 
+        public Bet()
+        {
 
+        }
         public string GetDescription()
         {
             return ("bet"); // moet dalijk Bettor hebben, met een check of amount null is, null = no bet, anders waarde meegeven als bet.en vermelden welke dog het was.

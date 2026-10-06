@@ -37,6 +37,7 @@ namespace DogsAtTheRaces
         {   
             // set bet to 0, use value out of mybet
             MyBet.Amount=0;
+            MyBet = null;
         }
         public bool PlaceBet(int BetAmount, int DogToWin)
         {
@@ -58,8 +59,6 @@ namespace DogsAtTheRaces
             Cash -= MyBet.Amount;
             int payout = MyBet.PayOut(Winner);
             Cash += payout;
-
-            MyBet = null;
         }
     }
 }

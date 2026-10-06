@@ -24,16 +24,15 @@ public partial class BettingParlor : Form
         guys[0] = new Guy("Joe", 50);
         guys[1] = new Guy("Bob", 75);
         guys[2] = new Guy("Al", 45);
-        guys[0].UpdateLabels();
-        guys[1].UpdateLabels();
-        guys[2].UpdateLabels();
+
+        for (int i = 0; i < guys.Length; i++) {guys[i].UpdateLabels();}
 
         racelengt = pb_raceTrack.Width;
 
-        dogs[0] = new Dog(Randomizer, pb_dog1);
-        dogs[1] = new Dog(Randomizer, pb_dog2);
-        dogs[2] = new Dog(Randomizer, pb_dog3);
-        dogs[3] = new Dog(Randomizer, pb_dog4);
+        dogs[0] = new Dog(Randomizer, pb_dog1, racelengt);
+        dogs[1] = new Dog(Randomizer, pb_dog2, racelengt);
+        dogs[2] = new Dog(Randomizer, pb_dog3, racelengt);
+        dogs[3] = new Dog(Randomizer, pb_dog4, racelengt);
 
     }
 
@@ -61,7 +60,7 @@ public partial class BettingParlor : Form
     {
         for (int i = 0; i < dogs.Length; i++)
         {
-            if (dogs[i].Run(racelengt) == true)
+            if (dogs[i].Run() == true)
             {
                 winner = i;
                 Console.WriteLine("hond nummer" + (winner+1) + "heeft gewonnen");
@@ -99,6 +98,7 @@ public partial class BettingParlor : Form
         string user = lb_name.Text;
         int dog = (int)num_dogNumber.Value;
         int betvalue;
+        // hier moet een check bij komen om te kijken of de speler genoeg geld heeft, en dan kan de check weg bij de guys.placebet functie
 
         if (usernumber == 0) {
             betvalue = (int)numericUpDown1.Value;
@@ -126,7 +126,10 @@ public partial class BettingParlor : Form
             betstats3 = true;
         }
 
+            // wisselende namen linken aan cijfer, daarna usernumber vergelijken met for loop zodat we de text 1 keer gebruiken?
     }
+    
+
 
     public void rb_Guy3_CheckedChanged(object sender, EventArgs e)
     {
