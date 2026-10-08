@@ -10,33 +10,41 @@ namespace DogsAtTheRaces
 {
     public class Guy
     {
-        public string Name { get; set; }
-        public int Cash { get; set; }
-
+        public string Name { get; }
+        private int cash;
+        public int Cash { get { return cash; } }
+        
+        public string name { get { return Name; } }
         public Bet MyBet;
 
         //ui delen:
-        public RadioButton MyRadioButton;
-        public Label MyLabel;
+        private RadioButton MyRadioButton;
+        private Label MyLabel;
 
-        public Guy(string name, int cash)
+        public Guy(string name, int cash, Label lb_guy1BetLabel, RadioButton rb_Guy1)
         {
             Name = name;
-            Cash = cash;
+            this.cash = cash;
+            this.MyLabel = lb_guy1BetLabel;
+            this.MyRadioButton = rb_Guy1;
+            // betstats to update label with after race end should move here. 
         }
         public void UpdateLabels()
         {
-            
-            //MyLabel.Text = Name;
-            string money = Cash.ToString();
-            //MyRadioButton.Text = money;
-            // set my label to bet's description, radio button to show cash
+            // if checken wel/geen bet
+            if (MyBet != null)
+            {
+                MyLabel.Text = Name +" heeft " + MyBet.Amount.ToString() + " ingezet op hond nummer " + MyBet.Dog;
+            }
+            else
+            {
+                MyLabel.Text = "nog geen bet geplaatst";
+            }
         }
 
         public void ClearBet()
         {   
             // set bet to 0, use value out of mybet
-            MyBet.Amount=0;
             MyBet = null;
         }
         public bool PlaceBet(int BetAmount, int DogToWin)
@@ -56,9 +64,8 @@ namespace DogsAtTheRaces
         {
             if (MyBet == null || MyBet.Amount == 0)
                 return;
-            Cash -= MyBet.Amount;
             int payout = MyBet.PayOut(Winner);
-            Cash += payout;
+            cash += payout;
         }
     }
 }

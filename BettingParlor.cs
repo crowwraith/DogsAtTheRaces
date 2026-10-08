@@ -21,9 +21,9 @@ public partial class BettingParlor : Form
     {
         InitializeComponent();
 
-        guys[0] = new Guy("Joe", 50);
-        guys[1] = new Guy("Bob", 75);
-        guys[2] = new Guy("Al", 45);
+        guys[0] = new Guy("Joe", 50, lb_guy1BetLabel, rb_Guy1);
+        guys[1] = new Guy("Bob", 75, lb_guy2BetLabel, rb_Guy2);
+        guys[2] = new Guy("Al" , 45, lb_guy3BetLabel, rb_Guy3 );
 
         for (int i = 0; i < guys.Length; i++) {guys[i].UpdateLabels();}
 
@@ -62,12 +62,18 @@ public partial class BettingParlor : Form
         {
             if (dogs[i].Run() == true)
             {
-                winner = i;
-                Console.WriteLine("hond nummer" + (winner+1) + "heeft gewonnen");
+                
                 t_raceTimer.Stop();
-                MessageBox.Show("hond nummer" + (winner+1) + "heeft gewonnen");
+                MessageBox.Show("hond nummer " + (i+1) + " heeft gewonnen");
                 raceEnd();
+                foreach (Guy g in guys)
+                {
+                    g.Collect(i);
+                    g.ClearBet();
+                    g.UpdateLabels();
+                }
                 return;
+
             }
         }
     }
@@ -76,23 +82,14 @@ public partial class BettingParlor : Form
         for (int j = 0; j < dogs.Length; j++)
         {
             dogs[j].TakeStartingPosition();
-
         }
         betstats3 = false;
         betstats2 = false;
         betstats1 = false;
-        lb_guy1BetLabel.Text = "nog geen bet geplaatst";
-        lb_guy2BetLabel.Text = "nog geen bet geplaatst";
-        lb_guy3BetLabel.Text = "nog geen bet geplaatst";
-        foreach (Guy g in guys)
-        {
-            g.Collect(winner);
-        }
     }
 
 
     // buttons for pre race betting
-
     public void bt_bet_Click(object sender, EventArgs e)
     {
         string user = lb_name.Text;
