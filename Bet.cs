@@ -13,9 +13,11 @@ namespace DogsAtTheRaces
         public int Amount;
         public int Dog; // dog number
         public Guy Bettor; 
-        public Bet()
-        {
-
+        public Bet( int amount, int dog, Guy bettor)
+        {// moet een constructor worden, krijgt bovenstaande waardes binnen vanuit Guy. 
+            Amount = amount;
+            Dog = dog-1;
+            Bettor = bettor;
         }
         public string GetDescription()
         {
