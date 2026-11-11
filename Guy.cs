@@ -10,56 +10,66 @@ namespace DogsAtTheRaces
 {
     public class Guy
     {
-        public string Name { get; set; }
-        public int Cash { get; set; }
-
-        public Bet MyBet;
+        public string Name { get; }
+        private int cash;
+        private int number;
+        public int Cash { get { return cash; } }
+        
+        public string name { get { return Name; } }
+        public int Number { get { return number; } }
+        public  Bet MyBet;
 
         //ui delen:
-        public RadioButton MyRadioButton;
-        public Label MyLabel;
+        private RadioButton MyRadioButton;
+        private Label MyLabel;
 
-        public Guy(string name, int cash)
+        public Guy(string name, int cash, Label lb_guy1BetLabel, RadioButton rb_Guy1, int number)
         {
             Name = name;
-            Cash = cash;
+            this.cash = cash;
+            this.MyLabel = lb_guy1BetLabel;
+            this.MyRadioButton = rb_Guy1;
+            this.number = number;
         }
-        public void UpdateLabels()
+        public void UpdateLabels(int i)
         {
-            
-            //MyLabel.Text = Name;
-            string money = Cash.ToString();
-            //MyRadioButton.Text = money;
-            // set my label to bet's description, radio button to show cash
+            // label checks where we are within the program so we can display different data while running the program. this should make sure we dont keep artifacts from past rounds.
+
+            int label = i;
+            // if checken wel/geen bet
+            if (label == 1)
+            {
+                if (MyBet != null)
+                {
+                    MyLabel.Text = Name + " heeft " + MyBet.Amount.ToString() + " ingezet op hond nummer " + ( MyBet.Dog + 1 );
+                }
+                else
+                {
+                    MyLabel.Text = "heeft nog geen bet geplaatst";
+                }
+            }
+            if(label == 2 && MyBet == null)
+            {
+               MyLabel.Text = Name + " heeft geen bet geplaatst";
+            }                                      
         }
 
         public void ClearBet()
         {   
-            // set bet to 0, use value out of mybet
-            MyBet.Amount=0;
+            MyBet = null;
         }
         public bool PlaceBet(int BetAmount, int DogToWin)
         {
-            // check of er genoeg geld is
-            if (BetAmount <= 4 || BetAmount > Cash)
-                return false;
-
             // maak nieuwe bet aan
-            MyBet = new Bet();
-            MyBet.Amount = BetAmount;
-            MyBet.Dog = DogToWin-1;
-            MyBet.Bettor = this;
+            MyBet = new Bet(BetAmount,DogToWin,this);
             return true;
         }
         public void Collect(int Winner)
         {
             if (MyBet == null || MyBet.Amount == 0)
                 return;
-            Cash -= MyBet.Amount;
             int payout = MyBet.PayOut(Winner);
-            Cash += payout;
-
-            MyBet = null;
+            cash += payout;
         }
     }
 }

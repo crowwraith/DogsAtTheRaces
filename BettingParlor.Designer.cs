@@ -219,7 +219,7 @@ namespace DogsAtTheRaces
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(373, 161);
+            label2.Location = new Point(364, 171);
             label2.Name = "label2";
             label2.Size = new Size(198, 25);
             label2.TabIndex = 6;
